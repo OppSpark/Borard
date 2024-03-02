@@ -11,7 +11,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.annotation.processing.Generated;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -38,6 +40,12 @@ public class Article {
 
     @Setter
     private String hashtag;  //해시테그
+
+    @OrderBy("id")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
+
 
     @CreatedDate
     @Column(nullable = false)
